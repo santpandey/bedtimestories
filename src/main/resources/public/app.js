@@ -27,6 +27,10 @@ document.addEventListener("DOMContentLoaded", function () {
     const languageArea = document.getElementById('languageArea');
 
     const generateBtn = document.getElementById('generateBtn');
+    const prevButton = document.getElementById('prev-button');
+    const nextButton = document.getElementById('next-button');
+    let json;
+    let currentPage = 1;
 
     charSel.addEventListener('sl-change', (e) => {
         charArea.value = charSel.getAllOptions()[charSel.value].getTextLabel();
@@ -44,6 +48,21 @@ document.addEventListener("DOMContentLoaded", function () {
         languageArea.value = languageSel.getAllOptions()[languageSel.value].getTextLabel();
     });
 
+    prevButton.addEventListener('click', () => {
+      // Decrement the page number
+      currentPage--;
+
+      // Pass the page number to the function that loads the data for the page
+      loadData(currentPage);
+    });
+    nextButton.addEventListener('click', () => {
+      // Decrement the page number
+      currentPage++;
+
+      // Pass the page number to the function that loads the data for the page
+      loadData(currentPage);
+    });
+
     generateBtn.addEventListener('click', async(e) => {
         generateBtn.loading = true;
         generateBtn.disabled = true;
@@ -53,10 +72,15 @@ document.addEventListener("DOMContentLoaded", function () {
             plot: plotArea.value,
             language: languageArea.value
         }));
-        const json = await resp.json();
+        json = await resp.json();
+        //console.log("Hi "+json);
         storyArea.value = json.join('\n\n');
         generateBtn.loading = false;
         generateBtn.disabled = false;
     });
+
+    function loadData(pageNumber){
+    storyArea.value = json
+    }
 });
 

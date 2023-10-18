@@ -65,6 +65,7 @@ class StoryMakerController {
         - Act 5 : This is the resolution of the story where conflicts are resolved and loose ends tied up. This is the moment of emotional release for the reader.
         
         Generate a kid story in ${language} language in 5 acts, with around 20 sentences per act, where the protagonist is ${character}, where the action takes place ${setting} and the plot is about ${plot}.
+        Use delimeter ----- to split the story between the acts. Dont make the delimeter word in bold or italics
         """.stripIndent()
     }
 
@@ -117,7 +118,10 @@ class StoryMakerController {
         if (safetyAttributes.blocked) {
             return ["Text generation has been blocked by Vertex AI", scores] as String[]
         } else {
-            return content.split(/\*\*(?:.*)\*\*/)*.trim().grep() as String[]
+            String[] values = content.split(/\*\*(?:.*)\*\*/)*.trim().grep() as String[]
+            for(String a : values){
+                System.out.println(a)
+            }
         }
     }
 }
